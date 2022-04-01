@@ -82,7 +82,6 @@ public class BarFrame extends JFrame implements ChangeListener
             dataModel.update(i, new Double(newValue));
             bar.repaint();
          }
-
       };
 
       bar.addMouseListener(mouseListener);

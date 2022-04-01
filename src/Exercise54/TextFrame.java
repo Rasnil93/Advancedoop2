@@ -61,7 +61,7 @@ public class TextFrame extends JFrame
             int count = fieldList.length;
             for (int i = 0; i < count; i++)
             {
-               fieldList[i].setText(a.get(i).toString());
+               fieldList[i].setText(String.format("%.2f", a.get(i)));
             }
          }
       };
