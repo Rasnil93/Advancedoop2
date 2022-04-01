@@ -3,6 +3,8 @@ package Exercise54;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import java.util.ArrayList;
 
 /**
@@ -51,6 +53,21 @@ public class TextFrame extends JFrame
          }
       };
 
+      ChangeListener cl = new ChangeListener()
+      {
+         public void stateChanged(ChangeEvent e)
+         {
+            ArrayList<Double> a = dataModel.getData();
+            int count = fieldList.length;
+            for (int i = 0; i < count; i++)
+            {
+               fieldList[i].setText(a.get(i).toString());
+            }
+         }
+      };
+
+      dataModel.attach(cl);
+
       final int FIELD_WIDTH = 11;
       for (int i = 0; i < a.size(); i++)
       {
@@ -67,4 +84,5 @@ public class TextFrame extends JFrame
 
    DataModel dataModel;
    JTextField[] fieldList;
+
 }

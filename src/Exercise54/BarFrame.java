@@ -1,6 +1,8 @@
 package Exercise54;
 
 import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.awt.geom.*;
 import javax.swing.*;
 import javax.swing.event.*;
@@ -58,8 +60,33 @@ public class BarFrame extends JFrame implements ChangeListener
             }
          }
       };
+      JLabel bar = new JLabel(barIcon);
 
-      add(new JLabel(barIcon));
+
+      MouseAdapter mouseListener = new MouseAdapter()
+      {
+         //update dataModel from start to end points of mouse click on bar
+         public void mouseClicked(MouseEvent e)
+         {
+            double max =  (a.get(0)).doubleValue();
+            for (Double v : a)
+            {
+               double val = v.doubleValue();
+               if (val > max)
+                  max = val;
+            }
+            int x = e.getX();
+            int y = e.getY();
+            int i = (int) (y / (getIconHeight() / a.size()));
+            double newValue = (x / getIconWidth()) * max;
+            dataModel.update(i, new Double(newValue));
+            bar.repaint();
+         }
+
+      };
+
+      bar.addMouseListener(mouseListener);
+      add(bar);
 
       setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
       pack();
@@ -81,4 +108,14 @@ public class BarFrame extends JFrame implements ChangeListener
 
    private static final int ICON_WIDTH = 200;
    private static final int ICON_HEIGHT = 200;
+
+   private double getIconWidth() {
+      return ICON_WIDTH;
+   }
+
+   private int getIconHeight() {
+      return ICON_HEIGHT;
+   }
+
+
 }
